@@ -1,4 +1,6 @@
 # rxjs-audio
+[![Build Status](https://travis-ci.org/imsingh/rxjs-audio.svg?branch=master)](https://travis-ci.org/imsingh/rxjs-audio)
+
 Dead simple way to have audio playback functionality in the JS application.
 
 Check out the [Demo App](https://imsingh.github.io/ngx-audio-app)
