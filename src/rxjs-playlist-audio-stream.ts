@@ -14,12 +14,12 @@ export class PlaylistAudioStream extends AudioStream {
     }
   };
   private currentTrackIndex: number = 0;
-  private audioInput: Array<string> = [];
+  private tracks: string[] = [];
 
-  constructor(input: Array<any>, config?: PlaylistStreamConfig | any) {
+  constructor(tracks: string[], config?: PlaylistStreamConfig | any) {
     super(config);
 
-    this.configureStream(config, input);
+    this.configureStream(config, tracks);
   }
 
   /**
@@ -60,7 +60,7 @@ export class PlaylistAudioStream extends AudioStream {
    * state has `isLastTrack:boolean` to check if First Track is playing or not
    */
   isLastPlaying(): boolean {
-    if (this.currentTrackIndex === this.audioInput.length - 1) {
+    if (this.currentTrackIndex === this.tracks.length - 1) {
       return true;
     } else {
       return false;
@@ -70,7 +70,7 @@ export class PlaylistAudioStream extends AudioStream {
    * Method to play track at particular index
    */
   playAt(index: number): void {
-    if (index < this.audioInput.length) {
+    if (index < this.tracks.length) {
       this.loadTrackAtIndex(index);
       this.play();
     }
@@ -82,7 +82,7 @@ export class PlaylistAudioStream extends AudioStream {
    * To do switch and play, use `platAt()` method.
    */
   switchTo(index: number): void {
-    if (index < this.audioInput.length) {
+    if (index < this.tracks.length) {
       this.loadTrackAtIndex(index);
     }
   }
@@ -93,7 +93,7 @@ export class PlaylistAudioStream extends AudioStream {
    */
   private loadTrackAtIndex(index: number): void {
     this.currentTrackIndex = index;
-    this.loadTrack(this.audioInput[index]);
+    this.loadTrack(this.tracks[index]);
     this.updateStateProps(this.state, 'isFirstTrack', this.isFirstPlaying());
     this.updateStateProps(this.state, 'isLastTrack', this.isLastPlaying());
   }
@@ -113,10 +113,10 @@ export class PlaylistAudioStream extends AudioStream {
    * config the stream for initialization
    * internal implementation, don't use it.
    */
-  private configureStream(config: PlaylistStreamConfig, input: Array<any>) {
+  private configureStream(config: PlaylistStreamConfig, tracks: string[]) {
     let initialTrack;
     /*  extract tracks from a list of track */
-    this.audioInput = input;
+    this.tracks = tracks;
 
     /* set initial track based on user input */
     if (config && config.initialTrack) {
@@ -128,7 +128,7 @@ export class PlaylistAudioStream extends AudioStream {
     /** if there is no config, do the following  */
     if (!config) {
       initialTrack = 0;
-      this.audioInput = input;
+      this.tracks = tracks;
     }
 
     /* initialize audio **/

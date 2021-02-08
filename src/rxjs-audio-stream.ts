@@ -12,7 +12,6 @@ export class AudioStream implements Stream {
     }
   };
   private audio: HTMLAudioElement = new Audio();
-  private currentTrack: string = '';
   private audioEvents: Array<string> = [
     'ended',
     'error',
@@ -119,11 +118,9 @@ export class AudioStream implements Stream {
     if (this.audio) {
       this.stop();
     }
-    this.currentTrack = src;
     this.audio.src = src;
     this.audio.autoplay = this.state.playing || this.config.autoPlay || false;
     this.audio.load();
-    this.updateStateProps(this.state.trackInfo, 'currentTrack', this.currentTrack);
   }
   /**
    * method to add events listener for audio stream
