@@ -37,7 +37,7 @@ Before using, you need to create an object of the Stream class. You'll need to p
 - `PlaylistAudioStream` is like the name says more suitable for playing playlists, in the options you'll be able to add an array of tracks
 
 ```ts
-import { AudioStream } from 'rxjs-audio-stream';
+import { AudioStream } from 'rxjs-audio';
 ...
 
 // For single track streams
