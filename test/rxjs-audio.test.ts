@@ -1,14 +1,14 @@
-import { RxJSAudioService } from '../src/rxjs-audio'
+import { AudioStream } from '../src/index';
 
 /**
  * RxJSAudioService test
  */
 describe('RxJSAudioService test', () => {
   it('works if true is truthy', () => {
-    expect(true).toBeTruthy()
-  })
+    expect(true).toBeTruthy();
+  });
 
   it('RxJSAudioService is instantiable', () => {
-    expect(new RxJSAudioService()).toBeInstanceOf(RxJSAudioService)
-  })
-})
+    expect(new AudioStream()).toBeInstanceOf(AudioStream);
+  });
+});

@@ -1,41 +1,38 @@
-import { Observable, Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs';
 
 /** interface for stream config */
 export interface StreamConfig {
-  urlKey?: string
-  initialTrack?: number
-  autoPlayNext?: boolean
+  autoPlay?: boolean;
+}
+export interface PlaylistStreamConfig extends StreamConfig {
+  initialTrack?: number;
+  autoPlayNext?: boolean;
 }
 
 /** interface for stream track info */
 export interface StreamTrackInfo {
-  currentTrack: number | undefined
-  readableCurrentTime: string
-  readableDuration: string
-  duration: number | undefined
-  currentTime: number | undefined
+  currentTrack: number | undefined;
+  duration: number | undefined;
+  currentTime: number | undefined;
 }
 
 /** interface  for stream state */
 export interface StreamState {
-  playing: boolean
-  isFirstTrack: boolean
-  isLastTrack: boolean
-  trackInfo: StreamTrackInfo
+  playing: boolean;
+  trackInfo: StreamTrackInfo;
+}
+
+export interface PlaylistStreamState extends StreamState {
+  isFirstTrack: boolean;
+  isLastTrack: boolean;
 }
 
 /** interface for stream */
 export interface Stream {
-  play(): void
-  playAt(index: number): void
-  switchTo(index: number): void
-  pause(): void
-  next(): void
-  previous(): void
-  stop(): void
-  seekTo(time: number): void
-  isFirstPlaying(): boolean
-  isLastPlaying(): boolean
-  events(): Observable<any>
-  getState(): Subject<any>
+  play(): void;
+  pause(): void;
+  stop(): void;
+  seekTo(time: number): void;
+  events(): Observable<any>;
+  getState(): Subject<any>;
 }

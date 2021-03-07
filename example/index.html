@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+    </head>
+    <body>
+        <h3>Very simple vanilla JS example to illustrate the library</h3>
+        <p>Note that for this one we are using the AudioStream, but PlaylistAudioStream may better suit you if you already have an array with music.</p>
+
+        <!-- This example code should not be consider good code, it is rather a quick example on how to use the library-->
+        <button id="backward" title="Backward">Back</button>
+        <button id="play" title="Play">Play</button>
+        <button id="pause" title="Pause">Pause</button>
+        <button id="next" title="Next">Next</button>
+
+        <br/>
+        <br/>
+
+        <div>Playing: <span id="isPlaying"></span></div>
+
+        <script src="https://unpkg.com/rxjs/bundles/rxjs.umd.js" ></script>
+        <script src="../dist/rxjs-audio.umd.js" ></script>
+
+        <script>
+            function ready(fn) {
+                if (document.readyState != 'loading') {
+                    fn();
+                } else {
+                    document.addEventListener('DOMContentLoaded', fn);
+                }
+            }
+
+            ready(() => {
+
+                var stream = new rxjsAudio.AudioStream({autoPlay: true});
+
+                stream
+                    .events()
+                    .subscribe(console.log)
+
+                stream
+                    .getState()
+                    .subscribe(function (state) {
+                        document
+                            .getElementById('isPlaying')
+                            .innerHTML = JSON.stringify(state.playing);
+
+                        console.log(state)
+                    })
+
+                // Handlers
+                // The following functions are just quick and dirty, but illustrate the usage of this library
+
+                document
+                    .getElementById("play")
+                    .onclick = function () {
+                        stream.loadTrack("http://www.jplayer.org/audio/mp3/Miaow-02-Hidden.mp3");
+                    }
+
+                document
+                    .getElementById("next")
+                    .onclick = function () {
+                        stream.loadTrack("http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3");
+                    }
+
+                document
+                    .getElementById("backward")
+                    .onclick = function () {
+                        stream.loadTrack("http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a");
+                    }
+
+                document
+                    .getElementById("pause")
+                    .onclick = function () {
+                        stream.pause();
+                    }
+
+            })
+        </script>
+
+    </body>
+</html>
